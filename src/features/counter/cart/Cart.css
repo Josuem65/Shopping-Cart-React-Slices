@@ -14,20 +14,18 @@ html, body {
     height: 0;
   }
 
-.react-icons {
-    /* display: block; */
-    color: white;
-    height: 10%;
-    width: 10%;
-}
-
-.mainCart { 
+.mainCart.cartToggled {
+  display: block;
   position: fixed;
   width: 30%;
   background-color: rgb(27, 26, 32);
   top: 0;
   right: 0;
   max-height: 45em;
+}
+
+.mainCart { 
+  display: none;
 }
 
 .cartHeader {

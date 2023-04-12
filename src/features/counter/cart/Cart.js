@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectCount } from './cartSlice'
+import { toggle } from './cartSlice'
 import { selectCart, decreaseQuantity, increaseQuantity, deleteFromCart, selectSubtotal } from '../products/productsSlice'
 import { FaCartPlus } from "react-icons/fa"
 
@@ -8,6 +8,7 @@ export default function Cart() {
     const dispatch = useDispatch()
     const cartList = useSelector(selectCart)
     const subtotalList = useSelector(selectSubtotal)
+    const [ cartToggle, setCartToggle ] = useState(0)
 
     function subTotal(item) {
       const sub = item.price * item.quantity
@@ -22,9 +23,21 @@ export default function Cart() {
       }
     }
 
+    function handleClick() {
+      !cartToggle ? setCartToggle(1) : setCartToggle(0)
+    }
+
+    useEffect(() => {
+      dispatch(toggle(cartToggle))
+      console.log(cartToggle)
+    },)
+
+    const iconStyle = { backgroundColor: "rgb(27, 26, 32)", color: "white", padding: ".2em", fontSize: "3em", position: "fixed", right: "0", top: "0"}
+    const toggledStyle = { backgroundColor: "rgb(27, 26, 32)", color: "white", padding: ".2em", fontSize: "3em", position: "fixed", right: "30%", top: "0" }
     return (
-      <div className="mainCart">
-        <FaCartPlus />
+      <>
+      <FaCartPlus style={cartToggle ? toggledStyle : iconStyle} onClick={() => handleClick()}/>
+      <div className={cartToggle ? "mainCart cartToggled" : "mainCart"} >
         <h1 className="cartHeader">Cart</h1>
         <div className="cartAmountDiv">
           <li className="cartAmount">{cartList.length}</li>
@@ -60,5 +73,6 @@ export default function Cart() {
           </div>
         </div>
       </div>
+      </>
     )
 }

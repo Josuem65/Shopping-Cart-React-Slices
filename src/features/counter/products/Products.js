@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts, productsSlice, selectProducts, addToCart, selectFiltered } from './productsSlice'
+import { selectToggle } from '../cart/cartSlice'
 
 export default function Products() {
   const dispatch = useDispatch()
   const products = useSelector(selectProducts)
   const filtered = useSelector(selectFiltered)
+  const isItToggled = useSelector(selectToggle)
 
   useEffect(() => {
     dispatch(getProducts())
@@ -30,7 +32,7 @@ export default function Products() {
 //  A L L   P R O D U C T S   F U N C T I O N
   function allProducts(products) {
     return (
-      <div className="mainProducts">
+      <div className={isItToggled ? "mainProducts cartIsToggled": "mainProducts"}>
        {products.map((product, index) => {
       const price = product.price
       const installment = product.installments
@@ -53,7 +55,7 @@ export default function Products() {
  //  F I L T E R E D   F U N C T I O N 
   function filteredProducts(filtered) {
     return (
-      <div className="mainProducts mainFiltered">
+      <div className={isItToggled ? "mainProducts cartIsToggled": "mainProducts"}>
        {filtered.map((product, index) => {
       const price = product.price
       const installment = product.installments

@@ -12,7 +12,7 @@ export default function SizeChart() {
     const [ currState, setCurrState ] = useState(sizeObjects)
 
     function handleSize(size, index) {
-        const selectedSize = currState.find((item) => item.value  == size)
+        const selectedSize = currState.find((item) => item.value == size)
         if(!selectedSize.toggled) {
             const restOfArr = currState.filter((item) => item.value !== size)
             const updatedItem = {...selectedSize, toggled: 1}
